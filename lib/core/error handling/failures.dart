@@ -34,7 +34,7 @@ class ServerFailure extends Failures {
 
   factory ServerFailure.fromResponse(int status, dynamic response) {
     if (status == 400 || status == 401 || status == 403) {
-      return ServerFailure(response['error']['message']);
+      return ServerFailure(response['status_message']);
     } else if (status == 404) {
       return ServerFailure('Error: Not found');
     } else if (status == 500) {
@@ -42,5 +42,8 @@ class ServerFailure extends Failures {
     } else {
       return ServerFailure('Error, Try Again later');
     }
+  }
+  factory ServerFailure.fromSuccessBody(Map<String, dynamic> json) {
+    return ServerFailure(json['status_message'] ?? 'Unknown error');
   }
 }

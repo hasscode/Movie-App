@@ -16,9 +16,15 @@ class MovieRemoteDataSource implements MovieBaseRemoteDataSource{
   @override
   Future<Either<Failures,List<MovieModel>>> getNowPlayingMovies() async{
 try {
-  final response =  await dio.get(Constants.baseUrl);
-  return right((response.data['results'] as List).map((e)=>MovieModel.fromJson(e)).toList());
-} on Exception catch (e) {
+  final response =  await dio.get(Constants.getNowPlayingPath);
+  if(response.data['success']== false){
+    return left(ServerFailure.fromSuccessBody(response.data));
+  }else {
+    return right((response.data['results'] as List)
+        .map((e) => MovieModel.fromJson(e))
+        .toList());
+  }
+  } on Exception catch (e) {
   if(e is DioException){
     return  left(ServerFailure.fromDioException(e));
   }
@@ -29,15 +35,43 @@ try {
   }
 
   @override
-  Future<Either<Failures,List<MovieModel>>>  getPopularMovies() {
-    // TODO: implement getPopularMovies
-    throw UnimplementedError();
+  Future<Either<Failures,List<MovieModel>>>  getPopularMovies() async{
+    try {
+      final response =  await dio.get(Constants.getPopularPath);
+      if(response.data['success']== false){
+        return left(ServerFailure.fromSuccessBody(response.data));
+      }else {
+        return right((response.data['results'] as List)
+            .map((e) => MovieModel.fromJson(e))
+            .toList());
+      }
+    } on Exception catch (e) {
+      if(e is DioException){
+        return  left(ServerFailure.fromDioException(e));
+      }
+      return  left(ServerFailure(e.toString()));
+    }
+
   }
 
   @override
-  Future<Either<Failures,List<MovieModel>>>  getTopRatedMovies() {
-    // TODO: implement getTopRatedMovies
-    throw UnimplementedError();
+  Future<Either<Failures,List<MovieModel>>>  getTopRatedMovies() async{
+    try {
+      final response =  await dio.get(Constants.getTopRatedPath);
+      if(response.data['success']== false){
+        return left(ServerFailure.fromSuccessBody(response.data));
+      }else {
+        return right((response.data['results'] as List)
+            .map((e) => MovieModel.fromJson(e))
+            .toList());
+      }
+    } on Exception catch (e) {
+      if(e is DioException){
+        return  left(ServerFailure.fromDioException(e));
+      }
+      return  left(ServerFailure(e.toString()));
+    }
+
   }
 
 
