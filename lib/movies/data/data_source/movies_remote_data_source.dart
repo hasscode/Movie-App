@@ -16,10 +16,12 @@ class MovieRemoteDataSource implements MovieBaseRemoteDataSource{
   @override
   Future<Either<Failures,List<MovieModel>>> getNowPlayingMovies() async{
 try {
-  final response =  await dio.get(Constants.getNowPlayingPath);
+  final response =  await Dio().get(Constants.getNowPlayingPath);
   if(response.data['success']== false){
+    print(response.data);
     return left(ServerFailure.fromSuccessBody(response.data));
   }else {
+    print(response.data);
     return right((response.data['results'] as List)
         .map((e) => MovieModel.fromJson(e))
         .toList());
