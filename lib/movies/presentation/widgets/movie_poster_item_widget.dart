@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/movies/domain/entities/movie.dart';
 import 'package:movie_app/movies/presentation/screens/movie_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,11 +19,11 @@ final Movie movie;
         },
         child: ClipRRect(
           borderRadius:
-          const BorderRadius.all(Radius.circular(8.0)),
+          const BorderRadius.all(Radius.circular(5.0)),
           child: CachedNetworkImage(
             width: 120.0,
             fit: BoxFit.cover,
-            imageUrl: Constants.imageUrl(movie.backdropPath),
+            imageUrl: Constants.imageUrl(movie.backdropPath!),
             placeholder: (context, url) => Shimmer.fromColors(
               baseColor: Colors.grey[850]!,
               highlightColor: Colors.grey[800]!,
@@ -37,7 +38,7 @@ final Movie movie;
             ),
             errorWidget: (context, url, error) =>
             const Icon(Icons.error),
-          ),
+          )
         ),
       ),
     );

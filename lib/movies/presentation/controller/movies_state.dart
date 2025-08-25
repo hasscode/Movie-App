@@ -16,7 +16,14 @@ class MoviesState extends Equatable {
  final RequestState topRatedState;
  final String topRatedMessage;
 
+ final List<Movie> movieRecommendations;
+ final RequestState movieRecommendationsState;
+ final String movieRecommendationsMessage;
+
  const MoviesState({
+ this.movieRecommendations = const [],
+ this.movieRecommendationsState =RequestState.loading,
+ this.movieRecommendationsMessage= '',
   this.nowPlayingMovies = const [],
   this.nowPlayingState = RequestState.loading,
   this.nowPlayingMessage = '',
@@ -38,6 +45,9 @@ class MoviesState extends Equatable {
   List<Movie>? topRatedMovies,
   RequestState? topRatedState,
   String? topRatedMessage,
+  List<Movie>? movieRecommendations,
+  RequestState? movieRecommendationsState,
+  String? movieRecommendationsMessage,
  }) {
   return MoviesState(
    nowPlayingMovies: nowPlayingMovies ?? this.nowPlayingMovies,
@@ -49,6 +59,9 @@ class MoviesState extends Equatable {
    topRatedMovies: topRatedMovies ?? this.topRatedMovies,
    topRatedState: topRatedState ?? this.topRatedState,
    topRatedMessage: topRatedMessage ?? this.topRatedMessage,
+   movieRecommendations: movieRecommendations ?? this.movieRecommendations,
+      movieRecommendationsState: movieRecommendationsState ?? this.movieRecommendationsState,
+   movieRecommendationsMessage: movieRecommendationsMessage ?? this.movieRecommendationsMessage
   );
  }
 
@@ -63,5 +76,8 @@ class MoviesState extends Equatable {
   topRatedMovies,
   topRatedState,
   topRatedMessage,
+  movieRecommendationsMessage,
+  movieRecommendations,
+  movieRecommendationsState
  ];
 }

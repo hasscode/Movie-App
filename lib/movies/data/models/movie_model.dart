@@ -19,7 +19,7 @@ class MovieModel extends Movie {
           .toList() ??
           [],
       title: json['title'],
-      backdropPath: json['backdrop_path'],
+      backdropPath: json['backdrop_path']??'',
       overview: json['overview'],
       voteAvg: (json['vote_average']).toDouble() ,
       releaseDate: json['release_date'],
